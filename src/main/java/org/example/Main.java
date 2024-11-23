@@ -21,14 +21,14 @@ public class Main {
         Map<String , List<Order>> map = orders.stream()
                         .collect(Collectors.groupingBy(Order::product));
         var entrySet = map.entrySet();
-        entrySet.stream().
-        map((entry) -> {
+        entrySet.stream()
+                        .map((entry) -> {
             double value = entry.getValue().stream().map(Order::cost)
                             .reduce((x,y) -> x+y).orElse(0.0);
             return new Order(entry.getKey(), value);
         }).sorted(Comparator.comparing(Order::cost).reversed())
                 .limit(3)
-                .forEach(System.out::println);
+                .forEach( order -> System.out.println(order.product + ":" + order.cost));
     }
 
 
